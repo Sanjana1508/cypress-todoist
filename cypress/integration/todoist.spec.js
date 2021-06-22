@@ -15,7 +15,10 @@ describe('Todoist',()=>{
             },
             auth: {
                 'bearer': Cypress.env('token')
-              }
+              },
+            headers:{
+                'Content-Type': 'application/json'
+            }
 
         }).then(res=>{
             cy.log(res)
@@ -23,6 +26,8 @@ describe('Todoist',()=>{
             cy.log(id)
             expect(res.status).to.eq(200)
             expect(res.body.content).to.eq('Buy Milk')
+            expect(res.headers['content-type']).to.eq('application/json')
+            expect(res).to.have.property('duration')
 
             cy.request({
                 method:'POST',
@@ -35,6 +40,10 @@ describe('Todoist',()=>{
                 },
                 auth: {
                     'bearer': Cypress.env('token')
+                },
+                headers:{
+                    'Content-Type': 'application/json'
+    
                 }
 
             }).then(res=>{
@@ -56,6 +65,10 @@ describe('Todoist',()=>{
                 },
                 auth: {
                     'bearer': Cypress.env('token')
+                },
+                headers:{
+                    'Content-Type': 'application/json'
+    
                 }
             }).then(res=>{
                 cy.log(res)
@@ -111,12 +124,18 @@ describe('Todoist',()=>{
             },
             auth: {
                 'bearer': Cypress.env('token')
+            },
+            headers:{
+                'Content-Type': 'application/json'
+
             }
         }).then(res=>{
             cy.log(res)
            const idLabel=res.body.id
            expect(res.status).to.eq(200)
            expect(res.body.name).to.eq('Food')
+           expect(res.headers['content-type']).to.eq('application/json')
+           expect(res).to.have.property('duration')
     
             cy.request({
                 method:'POST',
@@ -126,6 +145,10 @@ describe('Todoist',()=>{
                 },
                 auth: {
                     'bearer': Cypress.env('token')
+                },
+                headers:{
+                    'Content-Type': 'application/json'
+    
                 }
             }).then(res=>{
                 cy.log(res)
